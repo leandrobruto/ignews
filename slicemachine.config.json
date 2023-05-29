@@ -1,0 +1,5 @@
+{
+  "repositoryName": "ignews606",
+  "adapter": "@slicemachine/adapter-next",
+  "libraries": ["./slices"]
+}

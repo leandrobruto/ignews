@@ -46,11 +46,11 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
         if (releventEvents.has(type)) {
             try {
                 switch (type) {
-                    // case 'customer.subscription.updated':
+                    case 'customer.subscription.updated':
                     case 'customer.subscription.deleted':
 
                         const subscription = event.data.object as Stripe.Subscription;
-console.log('entrou subscription deleted');
+
                         await saveSubscription(
                             subscription.id,
                             subscription.customer.toString(),
@@ -60,7 +60,7 @@ console.log('entrou subscription deleted');
                         break;
                     case 'checkout.session.completed':
                         const checkoutSession = event.data.object as Stripe.Checkout.Session;
-                        console.log('entrou checkout session');
+
                         await saveSubscription(
                             checkoutSession.subscription.toString(),
                             checkoutSession.customer.toString(),
