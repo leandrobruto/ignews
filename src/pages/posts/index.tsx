@@ -3,6 +3,7 @@ import styles from './styles.module.scss';
 import { GetStaticProps } from 'next';
 import { getPrismicClient } from '../../services/prismic';
 import { asText } from '@prismicio/helpers';
+import Link from 'next/link';
 
 type Post = {
     slug: string;
@@ -15,11 +16,6 @@ interface PostProps {
     posts: Post[]
 }
 
-interface DataProps {
-    type: string;
-    text: string;
-}
-
 export default function Posts({ posts }: PostProps) {
     return (
         <>
@@ -29,11 +25,13 @@ export default function Posts({ posts }: PostProps) {
             <main className={styles.container}>
                 <div className={styles.posts}>
                     { posts.map(post =>(
-                        <a href="#" key={post.slug}>
-                            <time>{post.updatedAt}</time>
-                            <strong>{post.title}</strong>
-                            <p>{post.excerpt}</p>
-                        </a>
+                        <Link legacyBehavior href={`/posts/${post.slug}`}>
+                            <a key={post.slug}>
+                                <time>{post.updatedAt}</time>
+                                <strong>{post.title}</strong>
+                                <p>{post.excerpt}</p>
+                            </a>
+                        </Link>
                     )) }
                 </div>
             </main>
