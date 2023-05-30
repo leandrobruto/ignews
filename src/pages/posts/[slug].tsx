@@ -1,11 +1,11 @@
 import { GetServerSideProps } from "next";
 import { getSession } from "next-auth/react"
-import { getPrismicClient } from "../../services/prismic";
 import { asText, asHTML } from "@prismicio/helpers"
 import Head from "next/head";
 
+import { getPrismicClient } from "../../services/prismic";
+
 import styles from "./post.module.scss";
-import { redirect } from "next/dist/server/api-utils";
 
 interface PostProps {
     post: {
@@ -34,14 +34,12 @@ export default function Post({ post }: PostProps) {
         </>
     )
 }
-interface Props {
-    activeSubscription: string
-}
+
 export const getServerSideProps: GetServerSideProps = async ({ req, params }) => {
     const session = await getSession({ req });
     const { slug } = params;
-console.log(session);
-    if (!session.activeSubscription) {
+// console.log(JSON.stringify(session, null, 2));
+    if (!session?.activeSubscription) {
         return { 
             redirect: {
                 destination: '/',
